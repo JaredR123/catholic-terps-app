@@ -1,0 +1,17 @@
+{
+  "name": "cscterps",
+  "version": "1.0.0",
+  "description": "This is a utility for the Catholic Terps application",
+  "main": "scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jared Ramirez",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.9.0",
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "firebase-admin": "^12.3.0"
+  }
+}

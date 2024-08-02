@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "170306745579",
+    "project_id": "catholic-terps-app",
+    "storage_bucket": "catholic-terps-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170306745579:android:97213b4917d393eb15baae",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhaTmToh16r1JCgSjIUggpHiVekqIRbI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

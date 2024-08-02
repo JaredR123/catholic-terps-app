@@ -1,0 +1,11 @@
+Catholic Terps App Update Log:
+
+Version 0.1.0 (July 2024 - 8/2/24):
+- Basic bottom navigation bar implementation
+- Basic CSC web page drawer implementation
+- Basic app bar header
+- Firebase integration
+- Node.js integration
+- JS web scraping
+- Bible API Connection
+- Starting CSC home page widgets

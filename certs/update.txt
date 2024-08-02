@@ -1,0 +1,7 @@
+These certs were an attempt to prompt proper SSL verification between 
+my local machine and the web pages I am scraping, but as of now these
+certificates do not work. I am instead just using some of the built-in
+functionality of the requests library to forego all SSL verification
+entirely. This is inadvisable, but since I am really only using the
+scraper to get text to populate some pages on the app, I am not too
+concerned about security risks.
