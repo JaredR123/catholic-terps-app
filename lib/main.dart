@@ -11,6 +11,7 @@ import 'firebase_options.dart';
 // import 'test_home.dart';
 import 'navigator.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'bible_pages/bible_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,10 +62,7 @@ class _NavigationBarState extends State<NavigationBar> {
       'Index -1: News',
       style: optionStyle,
     ),
-    Text(
-      'Index 0: Bible',
-      style: optionStyle,
-    ),
+    BiblesScreen(),
     HomePage(title: ''),
     Text(
       'Index 2: Catholic History',
