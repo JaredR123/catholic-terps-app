@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "catholic-terps-app",
+  "private_key_id": "f385f3f11ee91a853b6e5a1b1a4692a0a9e39a7f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCby+r2jltXwlBl\nV6c7vlUkJ0bVvUsJhJEqbJw0YADWZ83GNvbJuh/2iZjv2Dlg7jl0B7K1x2mv7VGZ\nVx/HsM0NMItmvnsHVsRZ3zK++EjARy2SeP7K5apzdgdB21K9MLvVg0GM3oAfpWKh\nDpq62DTCYi1P8y6IBE+v9Wpn5oFxPj3biK46Lfe5smXji0gZFOSJiq6xVfDSCqCL\nxY7A2OymRGMLjOsotDNUuaN6rq5tAnJHvB/ABrPZACJ7pk4GcfIhhRnyhcCOJ3rT\n9KynqO8heaf33K6YhJmARwFglwGVQdzDTVICUQmAzLV7SkQiS/CkRNumuzzPHnKe\n5v2MKVqRAgMBAAECggEAEnvxnxoJtVJNFpD9OuXclSMB0PcZ8YGkdXuYVtBzGP0M\n2XEI+6sVAruVhRNKz3jEIUOOjOmhXOmTrlU7ZIZR9bgmOeTslNTTC/SiwSyU+RcY\nzZGEbU8tV3CP8NzUJrUi+/SMMOnvGpIVLxWb/wIK1GswhBVOln2odLBx1Ozwu54e\n9UXtPiMvQwqpzXhNe+ecaRRlYlTj4bEReWpTpqSEkFdtZe/2bwS2ylqCxqwpDr+f\nM4moqRWNcxOlYxpr/kKNnpgWwUo/v4CFL+aHeNpmYG6NeKQFTGNPOlwhJ1As2jMc\nNfACuRps8ZY/kVPO1iD8pkQUOg5lFIgvDeYIn5mV7wKBgQDKD6bse53XdaVQ5rDU\nzD6TqpGTd3QpWtV5wvIfoDB4jjCO4x4PdpF0JpZE9AjPH/CPFFqkUymcjkmZOKr6\njCSLZKuBBhFI2iDUK0upgc68BURUHLmj4kH9nbg8vf5WLoEWrZYa7h9N8jLT5q4L\n3fZO28/jOn4levp5fmDkvEEuDwKBgQDFYqko+anxFBEjAkhFCQLAuUgTWYu1gMHY\nsIBuQY9Xml/K9cz1gkJtCGW9V0GLpPRSzryojlLkRZ+GBuKpsxQAnoliF8QooM5Y\nSTkbqeGqctEo4kgZh93oQ08xCf/lpd6Sp/TcI6WsNs2Zfbc6fcrl2E1hLqq5Kyyp\nh95/N7WNXwKBgQC6QC00REndBbMpXEtZCx8PTCU90dkAGZs2ziwSXLzxEtfNjany\nxO8UKlFPI8ZO7Xj22eMnHwT3KuzKUELCCZXR6yxvFKGwDmg+Sd5HU8C07QHrqkKv\nvmnnlY7yZore86THu5/mGOJAHeUeD78UbzePvuvj3tHSSIZCoOw9Sw2lnwKBgQCl\nsSpbESlNDBFOmA3ela/P5DjStWqH1CvlIFTPOQ2A9j/PegKxXMUyDciJ5oNJHBFU\nqeLIg6ClqqQ8t+7xkTgLRQoCY/zwNfzBM8ZSqIqcsIFPlpP7iogG/umtOr2rI0/x\nQDhVyz65j8+LN3LmEM6PnsFmAOyjP9DgBwQJOtSWdQKBgQCz9SgWIm77fg6lhwXf\nNYSg9hNHUN07CdbEVnaK4AZORFx2ENLGeB63ck35nIId6UV0ZbMYmpcXzd1EUciL\nwlUsWNyKvfiT48IfLMmNA/0jHcK6fnzFy3sEIV1wEymIKdAgVkTs1DSaTA46lWhl\nkmUgC0/lKU5ToJIHY041GjkdhA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "catholic-terps-app@catholic-terps-app.iam.gserviceaccount.com",
+  "client_id": "114469798986534088479",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/catholic-terps-app%40catholic-terps-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

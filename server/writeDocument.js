@@ -19,7 +19,7 @@ async function writeToFirebase(collectionName, data) {
   (async () => {
     const scrapedData = await scrapeData('https://en.wikipedia.org/wiki/Saint_Peter');
     if (scrapedData.length > 0) {
-      await writeToFirebase('wiki_pages', scrapedData);
+      await writeToFirebase('csc_pages', scrapedData);
     }
   })();
 
