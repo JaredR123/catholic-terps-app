@@ -12,12 +12,14 @@ import 'firebase_options.dart';
 import 'navigator.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'bible_pages/bible_screen.dart';
+import 'wiki_pages/page_display.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   // runApp(const MyHome());
   runApp(const MyApp());
 }
@@ -57,17 +59,14 @@ class _NavigationBarState extends State<NavigationBar> {
     fontWeight: FontWeight.bold,
   );
 
-  static const List<Widget> _bottomOptions = <Widget>[
+  List<Widget> _bottomOptions = <Widget>[
     Text(
       'Index -1: News',
       style: optionStyle,
     ),
     BiblesScreen(),
     HomePage(title: ''),
-    Text(
-      'Index 2: Catholic History',
-      style: optionStyle,
-    ),
+    PageScreen(title: 'Saint_Peter'), // TODO: Fix bug with chunked pages not rendering
     Text(
       'Index 3: Prayers',
       style: optionStyle,

@@ -31,7 +31,16 @@ class BibleAPIService {
       headers: {'api-key': apiKey},
     );
     if (response.statusCode == 200) {
-      return jsonDecode(response.body)['data'];
+      final List<dynamic> bibles = jsonDecode(response.body)['data'];
+
+      bibles.sort((a, b) {
+        // Alphabetical sort by Language, making sure English comes first
+        if (a['language']['name'] == 'English') return -1;
+        if (b['language']['name'] == 'English') return 1;
+        return (a['language']['name'] as String).compareTo(b['language']['name'] as String);
+      });
+
+      return bibles;
     } else {
       throw Exception('Failed to load Bibles');
     }

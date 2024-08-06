@@ -15,15 +15,15 @@ class _VersesScreenState extends State<VersesScreen> {
 
   Future<List<String>> fetchAllVerses() async {
     final verses = await service.fetchVerses(widget.bibleID, widget.chapterID);
-    List<String> verseContents = [];
+    final verseIds = verses.map((verse) => verse['id'] as String).toList();
 
-    for (var verse in verses) {
-      final content = await service.fetchVerseContent(widget.bibleID, verse['id']);
-      verseContents.add(content);
-    }
+    // Use Future.wait to fetch all verse contents concurrently
+    final verseContents = await Future.wait(
+      verseIds.map((id) => service.fetchVerseContent(widget.bibleID, id))
+    );
 
     return verseContents;
-  }
+}
   
   @override
   Widget build(BuildContext context) {
