@@ -66,7 +66,7 @@ class _NavigationBarState extends State<NavigationBar> {
     ),
     BiblesScreen(),
     HomePage(title: ''),
-    PageScreen(title: 'Saint_Peter'), // TODO: Fix bug with chunked pages not rendering
+    PageScreen(title: 'Pope_Francis'), // TODO: Fix bug with chunked pages not rendering
     Text(
       'Index 3: Prayers',
       style: optionStyle,

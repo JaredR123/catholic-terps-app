@@ -23,3 +23,8 @@ Version 0.1.3 (8/5/24):
 - Implemented basic HTML renderer
 - Polished wiki image viewer
 - Fixed slowdown in wiki scrolling on mobile
+
+Version 0.1.4 (8/6/24):
+- Implemented scraper for Christianity-related Wikipedia pages
+- Automated uploader for scraped files to Firestore pipeline
+- Uploaded first 6000 Wikipedia pages

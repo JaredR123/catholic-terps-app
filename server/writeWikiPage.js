@@ -1,16 +1,55 @@
+const fs = require('fs');
+const path = require('path');
 const db = require('./initializeFirebase');
-const { scrapeWikiPage, parseWikiContent } = require('./wikiscraper');
+const { scrapeWikiPageWithRetry, parseWikiContent } = require('./wikiscraper');
+const cheerio = require('cheerio');
+const { start } = require('repl');
+const pLimit = require('p-limit');
+const limit = pLimit(5);
 
 const maxChunkSize = 1048487; // Firestore limit
+const maxRetries = 5;
+const initialRetryDelay = 2000; // in milliseconds
+
+async function retryFirestoreOperation(operation, args, retries = 0) {
+  try {
+    await operation(...args);
+  } catch (error) {
+    if (retries < maxRetries) {
+      const delay = initialRetryDelay * Math.pow(2, retries); // Exponential backoff
+      console.error(`Firestore operation failed. Retrying in ${delay}ms...`, error.message);
+      await sleep(delay);
+      await retryFirestoreOperation(operation, args, retries + 1); // Retry with incremented retry count
+    } else {
+      console.error(`Max retries reached for Firestore operation.`, error.message);
+      throw error; // Rethrow the error after max retries
+    }
+  }
+}
 
 async function writeChunkToFirebase(title, chunkIndex, chunkContent, collectionName) {
   try {
+      const $ = cheerio.load(chunkContent);
       const chunkRef = db.collection(collectionName).doc(`${title}_part_${chunkIndex + 1}`);
-      await chunkRef.set({
-          content: chunkContent,
-          last_updated: new Date().toISOString(),
-          link: `https://en.wikipedia.org/wiki/${title}`,
-      });
+      let thumbnail = '';
+      
+      if (chunkIndex == 0) {
+        const infoboxImage = $('td.infobox-image img').first();
+        if (infoboxImage.length > 0) {
+          thumbnail = infoboxImage.attr('src');
+          if (thumbnail.startsWith('//')) {
+            thumbnail = 'https:' + thumbnail;
+          }
+        }
+      }
+
+      await retryFirestoreOperation(chunkRef.set.bind(chunkRef), [{
+        content: chunkContent,
+        last_updated: new Date().toISOString(),
+        link: `https://en.wikipedia.org/wiki/${title}`,
+        title: title,
+        thumbnail: thumbnail,
+      }]);
       console.log(`Chunk ${chunkIndex + 1} of ${title} uploaded successfully!`);
   } catch (error) {
       console.error(`Error uploading chunk to Firestore: ${error}`);
@@ -20,7 +59,7 @@ async function writeChunkToFirebase(title, chunkIndex, chunkContent, collectionN
 async function writeToFirebase(collectionName, pageData) {
     try {
         const pageRef = db.collection(collectionName).doc(pageData.title);
-        await pageRef.set(pageData);
+        await retryFirestoreOperation(pageRef.set.bind(pageRef), [pageData]);
         console.log(`Page ${pageData.title} uploaded successfully!`);
       } catch (error) {
         console.error(`Error uploading to Firestore: ${error}`);
@@ -28,7 +67,7 @@ async function writeToFirebase(collectionName, pageData) {
   }
   
 async function scrapeAndUploadWikiPage(title) {
-    const htmlContent = await scrapeWikiPage(title);
+    const htmlContent = await scrapeWikiPageWithRetry(title);
     if (!htmlContent) return;
 
     const contentSize = Buffer.byteLength(htmlContent, 'utf8');
@@ -43,18 +82,21 @@ async function scrapeAndUploadWikiPage(title) {
     await writeToFirebase('wiki_pages', pageData);
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function processWikiPage(title) {
-    try {
-        await scrapeAndUploadWikiPage(title);
-    } catch (error) {
-        if (error.code === 'CONTENT_TOO_LARGE') {
-          // Perform a different operation, such as splitting the content or storing it in Cloud Storage
-          handleLargeContent(title);
-        } else {
-          // Handle other errors
-          console.error(`An unexpected error occurred: ${error.message}`);
-        }
+  try {
+    await sleep(2000);
+    await scrapeAndUploadWikiPage(title);
+  } catch (error) {
+    if (error.code === 'CONTENT_TOO_LARGE') {
+      handleLargeContent(title);
+    } else {
+      console.error(`An unexpected error occurred: ${error.message}`);
     }
+  }
 }
 
 function splitContentIntoChunks(content, maxChunkSize = 1024000) {
@@ -86,8 +128,24 @@ async function handleLargeContent(title) {
   await Promise.all(chunkPromises);
 }
 
-const titles = ['Pope_Francis', 'Council_of_Nicaea', 'Saint_Peter']; // Add more titles as needed
+async function main() {
+  const filePath = path.join(__dirname, 'wiki', 'christian_wiki_articles.txt');
+  const titles = fs.readFileSync(filePath, 'utf8').split('\n').filter(Boolean);
 
-titles.forEach(title => {
-    processWikiPage(title);
+  const batchSize = 1000;
+  const startIndex = 5000;
+  const titlesToProcess = titles.slice(startIndex, startIndex + batchSize);
+
+  console.log(`Processing titles from ${startIndex} to ${startIndex + batchSize - 1}`);
+  
+  await Promise.all(titlesToProcess.map(title => 
+    limit(() => processWikiPage(title))
+  ));
+}
+
+// Execute the main function
+main().catch(error => {
+  console.error(`Error in main function: ${error.message}`);
 });
+
+// TODO: Files 6,000 to the end
