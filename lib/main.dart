@@ -9,10 +9,15 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 // import 'test_home.dart';
-import 'navigator.dart';
+import 'terpview_pages/navigator.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'bible_pages/bible_screen.dart';
-import 'wiki_pages/page_display.dart';
+// import 'bible_pages/bible_screen.dart';
+// import 'wiki_pages/page_display.dart';
+
+import 'bible_pages/bible_home.dart';
+import 'wiki_pages/wiki_home.dart';
+import 'prayer_pages/prayer_home.dart';
+import 'news_pages/news_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,24 +58,20 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar> {
   int _barIndex = 2;
 
+  /*
   static const TextStyle optionStyle = TextStyle(
     color: Colors.black,
     fontSize: 30,
     fontWeight: FontWeight.bold,
   );
+  */
 
   List<Widget> _bottomOptions = <Widget>[
-    Text(
-      'Index -1: News',
-      style: optionStyle,
-    ),
-    BiblesScreen(),
+    NewsHome(),
+    BibleHome(),
     HomePage(title: ''),
-    PageScreen(title: 'Pope_Francis'), // TODO: Fix bug with chunked pages not rendering
-    Text(
-      'Index 3: Prayers',
-      style: optionStyle,
-    ),
+    WikiHome(),
+    PrayerHome(),
   ];
 
   void _onItemTapped(int idx) {

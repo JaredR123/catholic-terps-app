@@ -28,3 +28,7 @@ Version 0.1.4 (8/6/24):
 - Implemented scraper for Christianity-related Wikipedia pages
 - Automated uploader for scraped files to Firestore pipeline
 - Uploaded first 6000 Wikipedia pages
+
+Version 0.1.7 (8/21/24):
+- Continued uploading Wikipedia pages
+- Implemented proper home page direction to Bible, History, News, and Prayer tabs

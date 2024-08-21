@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'terpview_pages/home.dart';
+import 'home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});

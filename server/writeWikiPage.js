@@ -114,7 +114,7 @@ function splitContentIntoChunks(content, maxChunkSize = 1024000) {
 }
   
 async function handleLargeContent(title) {
-  const htmlContent = await scrapeWikiPage(title);
+  const htmlContent = await scrapeWikiPageWithRetry(title);
   if (!htmlContent) return;
 
   const pageData = parseWikiContent(htmlContent, `https://en.wikipedia.org/wiki/${title}`);
@@ -133,14 +133,17 @@ async function main() {
   const titles = fs.readFileSync(filePath, 'utf8').split('\n').filter(Boolean);
 
   const batchSize = 1000;
-  const startIndex = 5000;
-  const titlesToProcess = titles.slice(startIndex, startIndex + batchSize);
-
-  console.log(`Processing titles from ${startIndex} to ${startIndex + batchSize - 1}`);
+  const startIndex = 53000;
   
-  await Promise.all(titlesToProcess.map(title => 
-    limit(() => processWikiPage(title))
-  ));
+  for (let i = startIndex; i < titles.length; i += batchSize) {
+    const titlesToProcess = titles.slice(i, i + batchSize);
+
+    console.log(`Processing titles from ${i} to ${Math.min(i + batchSize - 1, titles.length - 1)}`);
+    
+    await Promise.all(titlesToProcess.map(title => 
+      limit(() => processWikiPage(title))
+    ));
+  }
 }
 
 // Execute the main function
@@ -148,4 +151,4 @@ main().catch(error => {
   console.error(`Error in main function: ${error.message}`);
 });
 
-// TODO: Files 6,000 to the end
+// TODO: Files 53,000 to the end
